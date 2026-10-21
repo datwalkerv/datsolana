@@ -4,7 +4,10 @@ import { FearGreedPanel } from "@/components/fear-greed";
 import { PriceChart } from "@/components/price-chart";
 import { ScoreGauge } from "@/components/score-gauge";
 import { LocalTime } from "@/components/local-time";
+import { bucketId } from "@/lib/alerts";
 import { cols, db, type SnapshotDoc } from "@/lib/db";
+import { runMonitor } from "@/lib/monitor";
+import { deps } from "@/lib/server";
 import { ago, classTone, compactUsd, pct, usd } from "@/lib/format";
 import type { Stance } from "@/lib/scoring";
 import { FRESHNESS } from "@/lib/scoring/config";
@@ -14,7 +17,19 @@ export const dynamic = "force-dynamic";
 async function latest(): Promise<{ snap: SnapshotDoc | null; now: number; error?: string }> {
   const now = Date.now();
   try {
-    return { snap: await cols(await db()).snapshots.findOne({}, { sort: { at: -1 } }), now };
+    const snapshots = cols(await db()).snapshots;
+    const snap = await snapshots.findOne({}, { sort: { at: -1 } });
+    if (snap?._id === bucketId(now)) return { snap, now };
+    // No check yet in this 15-minute window: run the same idempotent pipeline the cron uses.
+    // shortcut: simultaneous first visits in a window may each fetch providers once; add a lock if traffic grows.
+    try {
+      await runMonitor(await deps(now));
+    } catch (e) {
+      console.error("[market] on-load market check failed", e);
+      // Fall back to the last snapshot (staleness is flagged below); with none, say the check failed.
+      return snap ? { snap, now } : { snap, now, error: "The market check failed. Check the server logs and environment variables." };
+    }
+    return { snap: await snapshots.findOne({}, { sort: { at: -1 } }), now };
   } catch (e) {
     console.error("[market] db read failed", e);
     return { snap: null, now, error: "The market database is unreachable right now." };
@@ -164,10 +179,6 @@ export default async function MarketPage() {
         </CardGrid>
       </Group>
 
-      <p className="px-4 py-3 text-caption-1 text-muted-foreground">
-        Decision support only. The Opportunity Score describes current conditions using heuristic thresholds; it is not a probability of profit,
-        a buy recommendation, or financial advice. Market data: CoinGecko.
-      </p>
     </>
   );
 }

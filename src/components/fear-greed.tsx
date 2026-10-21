@@ -1,4 +1,4 @@
-import { ContentBadge, Group, Header, Link } from "datui";
+import { ContentBadge, Group, Header } from "datui";
 import type { SnapshotDoc } from "@/lib/db";
 import { fearGreedLabel } from "@/lib/scoring/config";
 
@@ -8,7 +8,7 @@ type FG = NonNullable<SnapshotDoc["fearGreed"]>;
 export function FearGreedPanel({ fg }: { fg: FG | null }) {
   const delta = fg && fg.previous !== null ? fg.value - fg.previous : null;
   return (
-    <Group header={<Header>Fear &amp; Greed</Header>} description={<Attribution />}>
+    <Group header={<Header>Fear &amp; Greed</Header>}>
       {!fg ? (
         <p className="px-4 text-subhead text-muted-foreground">The Fear &amp; Greed Index is currently unavailable. It is excluded from the score until it returns.</p>
       ) : (
@@ -38,17 +38,5 @@ export function FearGreedPanel({ fg }: { fg: FG | null }) {
         </div>
       )}
     </Group>
-  );
-}
-
-function Attribution() {
-  return (
-    <>
-      A broad crypto-market sentiment indicator, not SOL-specific. Data:{" "}
-      <Link href="https://alternative.me/crypto/fear-and-greed-index/" target="_blank" rel="noopener">
-        Alternative.me Crypto Fear &amp; Greed Index
-      </Link>
-      .
-    </>
   );
 }

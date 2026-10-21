@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Group, Header, InfoRow, PanelHeader, SimpleCell } from "datui";
+import { Github } from "@/components/github-icon";
 import { CLASSES, FEAR_GREED_BANDS, MODEL_VERSION, WEIGHTS } from "@/lib/scoring/config";
 
 export const metadata: Metadata = { title: "About" };
@@ -49,19 +50,24 @@ export default function AboutPage() {
         ))}
       </Group>
 
-      <Group header={<Header>Install on iPhone</Header>}>
-        <div className="flex flex-col gap-3 px-4">
-          <InfoRow header="1">Open this site in Safari.</InfoRow>
-          <InfoRow header="2">Tap Share, then Add to Home Screen.</InfoRow>
-          <InfoRow header="3">Open SOL Signal from the Home Screen, go to Alerts and tap Enable Notifications (iOS 16.4+).</InfoRow>
-        </div>
-      </Group>
-
       <Group header={<Header>Data sources</Header>}>
         <div className="flex flex-col gap-3 px-4">
           <InfoRow header="Market data">CoinGecko (price, volume, market cap, daily history up to 365 days)</InfoRow>
           <InfoRow header="Sentiment">Alternative.me Crypto Fear &amp; Greed Index (updates daily)</InfoRow>
         </div>
+      </Group>
+
+      <Group header={<Header>Repository</Header>}>
+        <SimpleCell
+          href="https://github.com/datwalkerv/datsolana"
+          target="_blank"
+          rel="noopener noreferrer"
+          before={<Github aria-hidden />}
+          subtitle="github.com/datwalkerv/datsolana"
+          chevron
+        >
+          Source code on GitHub
+        </SimpleCell>
       </Group>
     </>
   );

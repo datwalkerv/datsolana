@@ -59,7 +59,7 @@ A pocket-sized Solana market monitor that explains what it sees and pings your i
 - Every snapshot records its model version, so past and present scores stay comparable.
 
 ### Monitoring
-- Monitoring runs on the server every 15 minutes. It never depends on the dashboard being open.
+- Monitoring runs on the server every 15 minutes, so alerts never depend on the dashboard being open. Opening the dashboard also checks the market if no check has run yet in the current 15-minute window.
 - Each run is idempotent. Repeat calls in the same 15-minute window reuse one snapshot and can't send duplicate alerts.
 - Alerts fire on *changes*, like a threshold being crossed, not on every refresh. Each alert type has its own cooldown, and everything triggered in one run arrives as a single notification.
 

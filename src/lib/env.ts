@@ -6,7 +6,11 @@ const Env = z.object({
   COINGECKO_API_KEY: z.string().optional(),
   NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string().min(80),
   VAPID_PRIVATE_KEY: z.string().min(40),
-  VAPID_SUBJECT: z.string().regex(/^(mailto:|https:)/, "must start with mailto: or https:"),
+  // Accept a bare email too; push services require the mailto: form.
+  VAPID_SUBJECT: z
+    .string()
+    .transform((s) => (/^[^:\s]+@[^:\s]+$/.test(s) ? `mailto:${s}` : s))
+    .pipe(z.string().regex(/^(mailto:|https:)/, "must be an email, mailto: address or https: URL")),
   CRON_SECRET: z.string().min(32, "use at least 32 random characters"),
   NEXT_PUBLIC_APP_URL: z.url(),
 });
