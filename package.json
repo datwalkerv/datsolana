@@ -6,22 +6,38 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "backtest": "tsx scripts/backtest.ts",
+    "vapid:generate": "web-push generate-vapid-keys"
   },
   "dependencies": {
+    "datui": "^0.1.0",
+    "lucide-react": "1.50.0",
+    "mongodb": "^7.7.0",
     "next": "16.4.2",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "web-push": "^3.6.7",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
+    "@vitest/coverage-v8": "^5.0.5",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "mongodb-memory-server": "^11.3.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.5"
   },
   "packageManager": "pnpm@11.25.0"
 }
