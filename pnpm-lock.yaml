@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       datui:
-        specifier: ^0.1.0
-        version: 0.1.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.2.0
+        version: 0.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       lucide-react:
         specifier: 1.50.0
         version: 1.50.0(@types/react@19.3.0)(react@19.3.0)
@@ -2183,8 +2183,8 @@ packages:
   date-fns@4.4.0:
     resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
-  datui@0.1.0:
-    resolution: {integrity: sha512-6j+aS36fFRaP8ENVEaO7af4TVH+qBDV5wpRYZPy71pArq2IrMNuNJKX8IVTqOGpgaG8OgCUpBZLOebwDI6vkFA==}
+  datui@0.2.0:
+    resolution: {integrity: sha512-TdbVqUoQHcXaFSKD3nmFWnDyh6D0yw9sAuwzkTPfR80FvHQA8yGXPdeWw3sFystGrpudibj4RiUJZWKytlXTnQ==}
     peerDependencies:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
@@ -5825,7 +5825,7 @@ snapshots:
 
   date-fns@4.4.0: {}
 
-  datui@0.1.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  datui@0.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       '@dnd-kit/core': 6.3.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
